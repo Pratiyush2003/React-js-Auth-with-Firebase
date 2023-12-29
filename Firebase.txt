@@ -1,0 +1,126 @@
+now we have to make four page other than app.js
+like login register home
+
+
+---> Login page 
+            >> add form from the bootstrap
+
+---> register page
+            >> register page copy paste same login page code and but remove login with google feature
+
+now setup route for first Login and second is register
+add link in the login page and to goto the register page
+
+add firebase to this project create a goto the firebase and add this to that
+copy given link to the firebase
+
+now goto the authentication section
+enter which type of sign in method you want to get "i choose google and email"
+import { getAuth } from 'firebase/auth' in you firebase.js
+
+export const auth = getAuth(app) this
+
+---> register page
+            >> add useState and getFeature form the value
+            const [email , setEmail] = useState()
+            const [password , setPassword] = useState()
+
+            >> import auth from firebase
+            import { auth } from '../Firebase'
+            import { createUserWithEmailAndPassword } from 'firebase/auth'
+
+now we have to use async/await function to perform action 
+and while user should click on the register button so we have to go to the login page
+
+              const [email , setEmail] = useState('')
+                const [password , setPassword] = useState('')
+
+                const navigate = useNavigate('/')
+
+                const handleSubmit = async (e) => {
+                        e.preventDefault();
+                        try{
+                            const user = await createUserWithEmailAndPassword(
+                                auth,
+                                email,
+                                password
+                            )
+                            console.log(user)
+                            navigate('/')
+                        }catch(error){
+                            console.log(error)
+                        }
+                }
+---> login page
+          copy all the import from the register page and login
+            import React, { useState } from 'react'
+            import { Link, useNavigate } from 'react-router-dom'
+            import { auth } from '../Firebase'
+            import { createUserWithEmailAndPassword } from 'firebase/auth'
+
+            copy all function of register page code with useState
+
+            const [email , setEmail] = useState('')
+            const [password , setPassword] = useState('')
+
+            const navigate = useNavigate('/')
+
+            const handleSubmit = async (e) => {
+                    e.preventDefault();
+                    try{
+                        const user = await createUserWithEmailAndPassword(
+                            auth,
+                            email,
+                            password
+                        )
+                        console.log(user)
+                        navigate('/')
+                    }catch(error){
+                        console.log(error)
+                    }
+            }
+rather then importing createUserWithEmailAndPassword in Login page import 
+{signInWithEmailAndPassword}
+
+
+and now we have to add feature for google signin feature
+now we have to import { GoogleAuthProvider, signInWithPopup } from the firebase
+import { signInWithEmailAndPassword, GoogleAuthProvider , signInWithPopup} from 'firebase/auth'
+
+const [email , setEmail] = useState('')
+    const [password , setPassword] = useState('')
+
+    const navigate = useNavigate('/')
+
+    const handleSubmit = async (e) => {
+            e.preventDefault();
+            try{
+                const user = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                )
+                console.log(user)
+                navigate('/home')
+            }catch(error){
+                console.log(error)
+            }
+    }
+
+    const googleClick = async () => {
+        try {
+            const provider = new GoogleAuthProvider();
+            const result = await signInWithPopup(auth, provider)
+            navigate('/home')
+        } catch (error) {
+            
+        }
+    }
+
+---> Home page 
+          getAuth in your home page
+          console.lo(getAuth)
+          and get function like {displayname, email}
+
+
+
